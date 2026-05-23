@@ -1,0 +1,53 @@
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="background" x1="160" y1="84" x2="884" y2="940" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#66E8FF"/>
+      <stop offset="0.45" stop-color="#1B82FF"/>
+      <stop offset="1" stop-color="#0D1B5E"/>
+    </linearGradient>
+    <linearGradient id="glass" x1="238" y1="144" x2="812" y2="848" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.95"/>
+      <stop offset="0.5" stop-color="#FFFFFF" stop-opacity="0.36"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0.1"/>
+    </linearGradient>
+    <linearGradient id="symbol" x1="306" y1="276" x2="723" y2="738" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#DFF8FF"/>
+    </linearGradient>
+    <filter id="softShadow" x="132" y="164" width="760" height="760" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+      <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+      <feOffset dy="32"/>
+      <feGaussianBlur stdDeviation="36"/>
+      <feComposite in2="hardAlpha" operator="out"/>
+      <feColorMatrix type="matrix" values="0 0 0 0 0.02 0 0 0 0 0.08 0 0 0 0 0.22 0 0 0 0.28 0"/>
+      <feBlend mode="normal" in2="BackgroundImageFix" result="drop"/>
+      <feBlend mode="normal" in="SourceGraphic" in2="drop" result="shape"/>
+    </filter>
+    <filter id="symbolShadow" x="246" y="232" width="532" height="564" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+      <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+      <feOffset dy="22"/>
+      <feGaussianBlur stdDeviation="22"/>
+      <feColorMatrix type="matrix" values="0 0 0 0 0.02 0 0 0 0 0.14 0 0 0 0 0.4 0 0 0 0.26 0"/>
+      <feBlend mode="normal" in2="BackgroundImageFix" result="drop"/>
+      <feBlend mode="normal" in="SourceGraphic" in2="drop" result="shape"/>
+    </filter>
+  </defs>
+
+  <rect width="1024" height="1024" rx="228" fill="url(#background)"/>
+  <path d="M136 304C136 204 204 136 304 136H720C820 136 888 204 888 304V720C888 820 820 888 720 888H304C204 888 136 820 136 720V304Z" fill="url(#glass)" opacity="0.34"/>
+  <path d="M204 238C258 170 330 150 430 150H693C779 150 852 218 860 304C721 265 617 274 520 318C405 370 326 344 204 238Z" fill="white" opacity="0.2"/>
+
+  <g filter="url(#softShadow)">
+    <rect x="226" y="258" width="572" height="420" rx="128" fill="white" fill-opacity="0.18"/>
+    <rect x="252" y="284" width="520" height="368" rx="106" stroke="white" stroke-opacity="0.42" stroke-width="22"/>
+  </g>
+
+  <g filter="url(#symbolShadow)">
+    <path d="M443 383C443 353 476 335 501 352L640 444C664 460 664 496 640 512L501 604C476 621 443 603 443 573V383Z" fill="url(#symbol)"/>
+    <path d="M512 558C532 558 548 574 548 594V704L600 651C614 637 637 637 651 651C665 665 665 688 651 702L537 816C523 830 501 830 487 816L373 702C359 688 359 665 373 651C387 637 410 637 424 651L476 704V594C476 574 492 558 512 558Z" fill="url(#symbol)"/>
+  </g>
+
+  <path d="M259 761C294 815 356 850 426 850H595C680 850 750 814 789 749" stroke="white" stroke-opacity="0.2" stroke-width="30" stroke-linecap="round"/>
+</svg>
