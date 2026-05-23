@@ -85,7 +85,12 @@ async function downloadFromVideo(video, button) {
 
   const tweetId = findTweetId(video);
   const variants = tweetId ? videoStore.get(tweetId) : [];
-  const best = selectBestVariant(variants);
+  let best = selectBestVariant(variants);
+
+  if (!best && tweetId) {
+    setButtonState(button, "获取中...", true);
+    best = await fetchVideoFromAPI(tweetId);
+  }
 
   if (!best) {
     setButtonState(button, "未找到", false);
@@ -114,6 +119,65 @@ async function downloadFromVideo(video, button) {
       setTimeout(() => setButtonState(button, "下载", false), 1800);
     }
   );
+}
+
+async function fetchVideoFromAPI(tweetId) {
+  try {
+    const ct0 = document.cookie
+      .split("; ")
+      .find((row) => row.startsWith("ct0="))
+      ?.split("=")[1];
+    if (!ct0) return null;
+
+    const bearer =
+      "AAAAAAAAAAAAAAAAAAAAANRILgAAAAAAnNwIzUejRCOuH5E6I8xnZz4puTs=1Zv7ttfk8LF81IUq16cHjhLTvJu4FA33AGWWjCpTnA";
+
+    const resp = await fetch(
+      `https://x.com/i/api/1.1/statuses/show.json?id=${tweetId}&tweet_mode=extended`,
+      {
+        headers: {
+          Authorization: `Bearer ${bearer}`,
+          "X-Csrf-Token": ct0,
+          "X-Twitter-Auth-Type": "OAuth2Session",
+          "X-Twitter-Active-User": "yes",
+        },
+        credentials: "include",
+      }
+    );
+    if (!resp.ok) return null;
+
+    const data = await resp.json();
+    const media = data?.extended_entities?.media || [];
+
+    for (const item of media) {
+      if (!item.video_info) continue;
+      const variants = item.video_info.variants
+        .filter((v) => v.url && v.url.includes(".mp4"))
+        .map((v) => ({
+          tweetId,
+          url: v.url,
+          bitrate: Number(v.bitrate) || 0,
+          quality: qualityFromBitrate(v.bitrate),
+        }));
+      if (variants.length) {
+        const best = variants.sort((a, b) => b.bitrate - a.bitrate)[0];
+        videoStore.set(tweetId, variants);
+        return best;
+      }
+    }
+
+    return null;
+  } catch {
+    return null;
+  }
+}
+
+function qualityFromBitrate(bitrate) {
+  if (!bitrate) return "video";
+  if (bitrate >= 2000000) return "1080p";
+  if (bitrate >= 832000) return "720p";
+  if (bitrate >= 320000) return "480p";
+  return "360p";
 }
 
 function findTweetId(element) {
